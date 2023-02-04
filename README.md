@@ -65,3 +65,13 @@ Para ter a segurança de refatorar um código, por onde começar?
         Tratar erros de forma adequada;
     - Classe / Arquivo grande;
         - Extrair Classe;
+    - Inveja de dados (longa cadeia de mensagens - Facade abstrai um subsistema mais complexo)
+        - Extrair um método;
+        - Mover um método para outra classe
+
+#### SOLID Principles
+- S
+- O: Estar aberto para extensão e "fechado" para modificação
+- L
+- I
+- D
