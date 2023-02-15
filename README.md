@@ -117,3 +117,37 @@ Como começar a testar, dê o primeiro passo, criar um exemplo que as pessoas po
 
 Foque no que tem mais risco e com o que muda com mais frequeência, automatize o que da mais retorno.
 
+#### Aulas 03
+Ports and Adapters - Arquitetura Hexagonal
+
+Tornar a aplicação independente de quem guia a aplicação e de seus recursos.
+
+Dividir a aplicação em :
+- Drivers: Test Cases, Usuários, APIs, interface gráfica, CLI ou qualquer coisa que seja um Driver, algo que guia sua aplicação.
+- Resources: database, SMTP server, File System entre outros.
+
+Porque o nome é Hexagonal: simplemente um recurso visual para poder ter espaços para desenhar os diagramas.
+
+Porque Porta?
+
+A analogia com uma porta é exatamente a mesma que temos em quando pensamos em conectar qualquer tipo de dispositivo em um computador, existe um contrato com um protocolo definido onde qualquer fornecedor pode adaptar sua tecnologia para interagir com a porta.
+
+Porque Adapters?
+
+São simplesmente as implementações dos casos de usos dessa portas.
+
+Faz sentido aplicar Ports and Adpters em qualquer contexto?
+
+Sim, podemos aplicar em todos contextos, pois sempre consumimos recursos e somos guiados por mais de um Driver, como por exemplo Testes, APIs, etc.
+
+No caso do recurso não é necessário ter mais de um, basta um pos queremos ter o controle desse recurso.
+
+Tests Patterns
+
+Um test double é um padrão que tem o objetivo de substituir um DOC (depended-on component) em um determinado tipo de teste por motivos de performance ou segurança.
+
+- Dummy: Objetos que criamos apenas para completar a lista de parâmetros que precisamos passar para invocar um determinado método.
+- Stubs: Objetos que retornam respostas prontas, definidas para um determinado teste, por questão de performance ou segurança (exemplo: quando eu executar o método fazer o pedido preciso que o método pegue a cotação do dolar retornando R$ 3,00).
+- Spies: Objetos que espionam a execução e armazenam os resultados para a verificação posterior (exemplo: quando eu executar o método fazer pedido preciso saber se o método enviar email foi invocado internamente e com quais parâmetros).
+- Mocks: Objetos similares a Stubs e Spies, permitem que você diga exatamente o que quer que ele faça, nós podemos programar o que será feito.
+- Fake: Objetos que tem implementações que simulam o funcionamento da instância real, que seria utilizada em produção (exemplo: uma base de dados em memória).
