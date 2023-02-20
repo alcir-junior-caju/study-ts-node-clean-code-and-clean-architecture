@@ -4,7 +4,8 @@ axios.defaults.validateStatus = () => true;
 
 test("Não deve aceitar um pedido com cpf inválido", async function () {
 	const input = {
-		cpf: "406.302.170-27"
+		cpf: "406.302.170-27",
+		items: []
 	}
 	const response = await axios.post("http://localhost:3003/checkout", input);
 	const output = response.data;
@@ -14,7 +15,8 @@ test("Não deve aceitar um pedido com cpf inválido", async function () {
 
 test("Deve criar um pedido vazio", async function () {
 	const input = {
-		cpf: "407.302.170-27"
+		cpf: "407.302.170-27",
+		items: []
 	};
 	const response = await axios.post("http://localhost:3003/checkout", input);
 	const output = response.data;

@@ -151,3 +151,89 @@ Um test double é um padrão que tem o objetivo de substituir um DOC (depended-o
 - Spies: Objetos que espionam a execução e armazenam os resultados para a verificação posterior (exemplo: quando eu executar o método fazer pedido preciso saber se o método enviar email foi invocado internamente e com quais parâmetros).
 - Mocks: Objetos similares a Stubs e Spies, permitem que você diga exatamente o que quer que ele faça, nós podemos programar o que será feito.
 - Fake: Objetos que tem implementações que simulam o funcionamento da instância real, que seria utilizada em produção (exemplo: uma base de dados em memória).
+
+#### Aulas 04
+Talvez o nome Clean Design faça mais sentido que Clean Architecture.
+
+Pois o Design está muito mais relacionado a responsabilidades e distribuição de responsabilidades.
+
+Enquanto a Arquitetura traz mais conceitos sobre restrições que você impõe no projeto, exemplo, definição da linguagem de programação, paradigmas adotado, tipo de comunicação entre serviços, frameworks, etc...
+
+Tudo isso são restições impostas que afetam o Design.
+
+Douglas Martin: Design is inevitable, the alternative to good design is bad design, not no design at all.
+
+O que considerar na hora de definir o Design e a Arquitetura de um Software?
+
+- Escodo do produto; - Cada escopo tem suas especificidades;
+- Quem é, e qual é o tamamnho da equipe; - O tamanho da equipe e a experiência define diretamente o direcionamento que irá seguir;
+- Prazo de entrega; - Usa o que o time sabe, a ferramenta que tem o domínio;
+- Tipo de dispositio;
+- Volume de requisições;
+- Orçamento;
+
+Não se deve adotar o mesmo tipo de abordagem para tudo, mas é uma boa prática definir padrões e seguir.
+
+Não existe um tipo de resposta que atenda sempre.
+
+Nas últimas décadas, vários modelos infuenciaram o Design e a Arquitetura.
+
+Um deles Ivar Jacobson (1992) BCE, EBI, EIC, ECB (Entity-control-boudary) é um padrão arquitetural usando um use-case dirigido a orientação a objeto no design de software.
+
+- Entity representa uma informação relevante para os Stakeholders, usualmente persistente.
+- Bondary é uma espécie de interface para quem está fora poder consumir.
+- Control garante o preocessamento da execução do seu use-case, e sua regra de negócio coordenando a sequencia de objetos envolvidos.
+
+Uma grande similaridade do Clean Architecture.
+
+Ivar Jacbson: Iniciantes podem muitas vezes utlizar  Entities Objects como transportadores de dados e colocar as regras de negócio em si dentro do Control Object. Isso deve ser evitado. Muitos comportamentos deveriam e poderiam ser colocados nos objetos de entidades que são idependentes.
+
+- Domain-Driven Design, Eric Evnas 2003
+- Hexagonal Archtiecture ou Ports and Adapters, Alistair Cockburn 2005
+- Onion Architecture, Jeff Palermo 2008
+
+Todas elas tem coisas em comum:
+- Isolam as regras de negócio;
+- Definem camadas e suas responsabilidades;
+- Criam um fluxo de controle e dependência ordenado e direcional;
+- Favorecem a testabilidade;
+- São independentes de recursos externos;
+- Favorecem a evolução tecnológica;
+
+Clean Architecture, Robert Martin 2012
+
+É um modelo que tem como objetivo o desacoplamento entre as regras de ngócio, ou domínio da aplicação e os seus recursos externos como frameworks e banco de dados.
+
+Entities - Entripise (Independence) Business Rules
+
+Entidades são responsáveis por modelar as regras de negócio independentes, aplicadas em qualquer contexto e que podem ser desde um objeto com métodos até mesmo um conjunto de funções.
+
+Como e onde usar?
+
+Nos Use Cases - Application Business Rules
+
+Na Clean Architecture, os casos de uso contém a aplicação das regras de ngócio idependente em um contexto específico.
+
+Eles realizam a orquestração das entidades, executando regras de negócio independentes.
+
+Geralmente é um verbo:
+- Fazer um pedido;
+- Cancelar um pedido;
+- Simular o frete;
+- Validar um cupom de desconto;
+- Realizar um pagamento;
+- Emitir uma nota fiscal.
+
+Repare que os nomes dos casos de uso tem relação com a Screaming Architecture, dar o nome da Classe ou Arquivo ao Use-case.
+
+Interface Adapters
+
+Os Interfaces Adapters fazem a ponte entre os casos de uso e os recursos externos.
+
+São responsáveis por realizar a conversão de dados de uma tecnologia.
+
+Frameworks & Drivers
+
+Por fim os frameworks and drivers são o nível mais baixo de abstração, é o componente que realiza a conexão com o banco de dados, requisições HTTP, interage com o sistema de arquivos ou acessa recursos do SO.
+
+O fuxo de dependência é de fora para dentro.
