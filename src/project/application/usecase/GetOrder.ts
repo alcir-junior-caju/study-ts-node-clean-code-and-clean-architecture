@@ -1,5 +1,4 @@
-import OrderRepository from "../../OrderRepository";
-import OrderRepositoryDatabase from "../../OrderRepositoryDatabase";
+import OrderRepository from "../repository/OrderRepository";
 
 type Output = {
     code: string;
@@ -9,7 +8,7 @@ type Output = {
 
 export default class GetOrder {
     constructor (
-        readonly orderRepository: OrderRepository = new OrderRepositoryDatabase()
+        readonly orderRepository: OrderRepository
     ) {}
 
     async execute (id: string): Promise<Output> {

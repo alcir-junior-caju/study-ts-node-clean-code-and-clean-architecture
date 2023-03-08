@@ -1,14 +1,11 @@
-import CouponRepository from "../../CouponRepository";
-import CouponRepositoryDatabase from "../../CouponRepositoryDatabase";
-import CurrencyGateway from "../../CurrencyGateway";
-import CurrencyGatewayHttp from "../../CurrencyGatewayHttp";
+import CouponRepository from "../repository/CouponRepository";
+import CurrencyGateway from "../gateway/CurrencyGateway";
+import CurrencyGatewayHttp from "../../infra/gateway/CurrencyGatewayHttp";
 import CurrencyTable from "../../domain/entity/CurrencyTable";
 import FreightCalculator from "../../domain/entity/FreightCalculator";
 import Order from "../../domain/entity/Order";
-import OrderRepository from "../../OrderRepository";
-import OrderRepositoryDatabase from "../../OrderRepositoryDatabase";
-import ProductRepository from "../../ProductRepository";
-import ProductRepositoryDatabase from "../../ProductRepositoryDatabase";
+import OrderRepository from "../repository/OrderRepository";
+import ProductRepository from "../repository/ProductRepository";
 
 type Input = {
     uuid?: string;
@@ -30,10 +27,10 @@ type Output = {
 
 export default class Checkout {
     constructor (
-        readonly currencyGateway: CurrencyGateway = new CurrencyGatewayHttp(),
-        readonly productRepository: ProductRepository = new ProductRepositoryDatabase(),
-        readonly couponRepository: CouponRepository = new CouponRepositoryDatabase(),
-        readonly orderRepository: OrderRepository = new OrderRepositoryDatabase()
+        readonly currencyGateway: CurrencyGateway,
+        readonly productRepository: ProductRepository,
+        readonly couponRepository: CouponRepository,
+        readonly orderRepository: OrderRepository
     ) {}
 
     async execute (input: Input): Promise<Output> {
@@ -47,8 +44,8 @@ export default class Checkout {
             for (const item of input.items) {
                 const product = await this.productRepository.getProduct(item.idProduct);
                 order.addItem(product, item.quantity);
-                const itemFreight = FreightCalculator.calculate(product)
-                freight += Math.max(itemFreight, 10) * item.quantity;
+                const itemFreight = FreightCalculator.calculate(product, item.quantity)
+                freight += itemFreight;
             }
         }
         if (input.from && input.to) {

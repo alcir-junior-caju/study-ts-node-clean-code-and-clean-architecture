@@ -1,6 +1,5 @@
 import FreightCalculator from "../../domain/entity/FreightCalculator";
-import ProductRepository from "../../ProductRepository";
-import ProductRepositoryDatabase from "../../ProductRepositoryDatabase";
+import ProductRepository from "../repository/ProductRepository";
 
 type Input = {
     items: Array<{
@@ -15,7 +14,7 @@ type Output = {
 
 export default class SimulateFreight {
     constructor (
-        readonly productRepository: ProductRepository = new ProductRepositoryDatabase()
+        readonly productRepository: ProductRepository
     ) {}
 
     async execute (input: Input): Promise<Output> {
@@ -25,8 +24,8 @@ export default class SimulateFreight {
         if (input.items) {
             for (const item of input.items) {
                 const product = await this.productRepository.getProduct(item.idProduct);
-                const itemFreight = FreightCalculator.calculate(product)
-                output.freight += Math.max(itemFreight, 10) * item.quantity;
+                const itemFreight = FreightCalculator.calculate(product, item.quantity)
+                output.freight += itemFreight;
             }
         }
         return output;

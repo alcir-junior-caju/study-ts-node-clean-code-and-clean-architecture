@@ -1,9 +1,8 @@
-import CouponRepository from "../../CouponRepository";
-import CouponRepositoryDatabase from "../../CouponRepositoryDatabase";
+import CouponRepository from "../repository/CouponRepository";
 
 export default class ValidateCoupon {
     constructor (
-        readonly couponRepository: CouponRepository = new CouponRepositoryDatabase()
+        readonly couponRepository: CouponRepository
     ) {}
 
     async execute (code: string): Promise<boolean> {
